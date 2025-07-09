@@ -2,58 +2,37 @@
 #include <iostream>
 
 void Harl::debug(void) {
-    std::cout << "I love having extra bacon for my 7XL-double-cheese-triple-pickle-specialketchup burger. I really do!" << std::endl;
+    std::cout << "[ DEBUG ]\n"
+              << "I love having extra bacon for my 7XL-double-cheese-triple-pickle-specialketchup burger. I really do!\n"
+              << std::endl;
 }
 
 void Harl::info(void) {
-    std::cout << "I cannot believe adding extra bacon costs more money. You didn’t put enough bacon in my burger! If you did, I wouldn’t be asking for more!" << std::endl;
+    std::cout << "[ INFO ]\n"
+              << "I cannot believe adding extra bacon costs more money. You didn’t put enough bacon in my burger!\n"
+              << std::endl;
 }
 
 void Harl::warning(void) {
-    std::cout << "I think I deserve to have some extra bacon for free. I’ve been coming for years, whereas you started working here just last month." << std::endl;
+    std::cout << "[ WARNING ]\n"
+              << "I think I deserve to have some extra bacon for free. I’ve been coming for years!\n"
+              << std::endl;
 }
 
 void Harl::error(void) {
-    std::cout << "This is unacceptable! I want to speak to the manager now." << std::endl;
+    std::cout << "[ ERROR ]\n"
+              << "This is unacceptable! I want to speak to the manager now.\n"
+              << std::endl;
 }
 
 void Harl::complain(std::string level) {
-    if (level == "DEBUG") debug();
-    else if (level == "INFO") info();
-    else if (level == "WARNING") warning();
-    else if (level == "ERROR") error();
-    else
-        std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
-}
+    const std::string levels[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+    void (Harl::*handlers[])() = { &Harl::debug, &Harl::info, &Harl::warning, &Harl::error };
 
-void Harl::filter(std::string level) {
-    enum Level { DEBUG, INFO, WARNING, ERROR, UNKNOWN };
-    Level lvl;
-
-    if (level == "DEBUG") lvl = DEBUG;
-    else if (level == "INFO") lvl = INFO;
-    else if (level == "WARNING") lvl = WARNING;
-    else if (level == "ERROR") lvl = ERROR;
-    else lvl = UNKNOWN;
-
-    switch (lvl) {
-        case DEBUG:
-            std::cout << "[ DEBUG ]" << std::endl;
-            debug();
-            [[fallthrough]];
-        case INFO:
-            std::cout << "[ INFO ]" << std::endl;
-            info();
-            [[fallthrough]];
-        case WARNING:
-            std::cout << "[ WARNING ]" << std::endl;
-            warning();
-            [[fallthrough]];
-        case ERROR:
-            std::cout << "[ ERROR ]" << std::endl;
-            error();
-            break;
-        default:
-            std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
+    for (int i = 0; i < 4; ++i) {
+        if (levels[i] == level) {
+            (this->*handlers[i])();
+            return;
+        }
     }
 }

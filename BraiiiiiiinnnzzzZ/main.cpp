@@ -1,18 +1,11 @@
-// main.cpp
 #include "Zombie.hpp"
 
-Zombie* newZombie(std::string name);
-void randomChump(std::string name);
-
 int main() {
-    std::cout << "Creating zombie on heap:\n";
-    Zombie* heapZombie = newZombie("HeapZombie");
-    heapZombie->announce();
-    delete heapZombie; // important!
+    Zombie* z = Zombie::newZombie("George");
+    z->announce();
+    delete z;
 
-    std::cout << "\nCreating zombie on stack:\n";
-    randomChump("StackZombie");
+    Zombie::randomChump("Larry");
 
     return 0;
 }
-

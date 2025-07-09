@@ -1,20 +1,43 @@
 #include "PhoneBook.hpp"
+#include <iostream>
+#include <limits>
 
-PhoneBook::PhoneBook()
-    : nextIndex(0), size(0) {}
+PhoneBook::PhoneBook() : size(0), index(0) {}
 
-void PhoneBook::addContact(const Contact& c) {
-    contacts[nextIndex] = c;
-    nextIndex = (nextIndex + 1) % 8;
-    if (size < 8) ++size;
+void PhoneBook::addContact() {
+    Contact newContact;
+    if (!newContact.fillContact()) {
+        std::cout << "All fields must be filled. Contact not saved." << std::endl;
+        return;
+    }
+
+    contacts[index] = newContact;
+    index = (index + 1) % 8;
+    if (size < 8)
+        size++;
+    std::cout << "Contact added successfully!" << std::endl;
 }
 
-Contact PhoneBook::getContact(int index) const {
-    if (index < 0 || index >= size)
-        return Contact(); 
-    return contacts[index];
-}
+void PhoneBook::searchContact() const {
+    if (size == 0) {
+        std::cout << "Phonebook is empty." << std::endl;
+        return;
+    }
 
-int PhoneBook::getSize() const {
-    return size;
+    std::cout << "|     Index|First Name| Last Name|  Nickname|" << std::endl;
+    for (int i = 0; i < size; ++i)
+        contacts[i].displayShort(i);
+
+    std::cout << "Enter index: ";
+    int i;
+    std::cin >> i;
+
+    if (std::cin.fail() || i < 0 || i >= size) {
+        std::cout << "Invalid index." << std::endl;
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    } else {
+        std::cin.ignore();
+        contacts[i].displayFull();
+    }
 }

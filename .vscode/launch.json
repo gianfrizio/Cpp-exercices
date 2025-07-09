@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/gianfrizio/Cpp-exercices",
-      "program": "/home/gianfrizio/Cpp-exercices/build/Debug/outDebug",
+      "cwd": "/home/gianfrizio/Cpp-exercices/s",
+      "program": "/home/gianfrizio/Cpp-exercices/s/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

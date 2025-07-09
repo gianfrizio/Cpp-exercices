@@ -6,15 +6,13 @@
 class PhoneBook {
 private:
     Contact contacts[8];
-    int nextIndex; 
-    int size;      
+    int size;
+    int index;
 
 public:
     PhoneBook();
-
-    void addContact(const Contact& c);
-    Contact getContact(int index) const;
-    int getSize() const;
+    void addContact();
+    void searchContact() const;
 };
 
 #endif

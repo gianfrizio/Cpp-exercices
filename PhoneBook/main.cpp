@@ -1,18 +1,26 @@
-#include <iostream>
 #include "PhoneBook.hpp"
+#include <iostream>
 
 int main() {
-    PhoneBook phonebook;
-    Contact c1;
-    c1.setFirstName("Mario");
-    c1.setLastName("Rossi");
-    c1.setPhoneNumber("1234567890");
+    PhoneBook phoneBook;
+    std::string command;
 
-    phonebook.addContact(c1);
-    for (int i = 0; i < phonebook.getSize(); ++i) {
-        Contact c = phonebook.getContact(i);
-        std::cout << i + 1 << ": " << c.getFirstName() << " "
-                  << c.getLastName() << " - " << c.getPhoneNumber() << "\n";
+    while (true) {
+        std::cout << "\nEnter command (ADD, SEARCH, EXIT): ";
+        std::getline(std::cin, command);
+
+        if (command == "ADD") {
+            phoneBook.addContact();
+        } else if (command == "SEARCH") {
+            phoneBook.searchContact();
+        } else if (command == "EXIT") {
+            break;
+        } else {
+            std::cout << "Invalid command.\n";
+        }
+
+        if (std::cin.eof())
+            break;
     }
 
     return 0;
